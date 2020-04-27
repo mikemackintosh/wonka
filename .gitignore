@@ -1,0 +1,6 @@
+.DS_Store
+scratch.go
+bin/
+testing/before.json
+testing/after.json
+testing/summary.log
