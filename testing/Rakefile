@@ -1,0 +1,29 @@
+require 'rake'
+require 'rspec/core/rake_task'
+
+task :spec    => 'spec:all'
+task :default => :spec
+
+namespace :spec do
+  stages = []
+  Dir.glob('./spec/*').each do |dir|
+    next unless File.directory?(dir)
+    stages << File.basename(dir)
+  end
+
+  puts stages.inspect
+
+  task :all     => stages
+  task :default => :all
+
+  stages.each do |stage|
+    stage == "_default" ? stage[1..-1] : stage
+    desc "Run serverspec tests to localhost"
+    RSpec::Core::RakeTask.new(stage.to_sym) do |t|
+      ENV['TARGET_HOST'] = "localhost"
+      t.pattern = "spec/#{stage}/*_spec.rb"
+      t.fail_on_error = false
+      t.rspec_opts = "--format json \ --out #{stage}.json"
+    end
+  end
+end
