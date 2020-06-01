@@ -1,6 +1,6 @@
 GOSRC = $(GOPATH)/src
 PKG_PATH = $(shell git rev-parse --show-toplevel | sed -e "s|^\($(GOPATH)\)/src/||")
-DOCKER_EXEC = docker run -v $(PWD):/go/src/$(PKG_PATH) -it wonka
+DOCKER_EXEC = docker run -v $(PWD):/go/src/$(PKG_PATH) -t wonka
 
 env:
 	@echo "PKG_PATH=$(PKG_PATH)"
