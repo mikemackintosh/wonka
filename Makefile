@@ -1,5 +1,9 @@
 GOSRC = $(GOPATH)/src
-DOCKER_EXEC = docker run -v $(PWD):/go/src/github.com/mikemackintosh/wonka -it wonka
+PKG_PATH = $(shell git rev-parse --show-toplevel | sed -e "s|^\($(GOPATH)\)/src/||")
+DOCKER_EXEC = docker run -v $(PWD):/go/src/$(PKG_PATH) -it wonka
+
+env:
+	@echo "PKG_PATH=$(PKG_PATH)"
 
 docker:
 	docker build -t wonka .
@@ -12,8 +16,8 @@ test:
 	$(DOCKER_EXEC) go test ./...
 
 useradd:
-	$(DOCKER_EXEC) go build -o /go/src/github.com/mikemackintosh/wonka/bin/useradd cmd/useradd/useradd.go
-	$(DOCKER_EXEC) /go/src/github.com/mikemackintosh/wonka/bin/useradd -l
+	$(DOCKER_EXEC) go build -o /go/src/$(PKG_PATH)/bin/useradd cmd/useradd/useradd.go
+	$(DOCKER_EXEC) /go/src/$(PKG_PATH)/bin/useradd -l
 
 spec:
 	$(DOCKER_EXEC) sh -c "cd testing && bundle exec rake spec"
