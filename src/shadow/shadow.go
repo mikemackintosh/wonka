@@ -216,7 +216,7 @@ func Marshal(in Entries) ([]byte, error) {
 	}
 
 	// Join the slices by new lines.
-	return []byte(strings.Join(out, "\n")), nil
+	return []byte(strings.Join(out, "\n") + "\n"), nil
 }
 
 // Save will take in entries.
