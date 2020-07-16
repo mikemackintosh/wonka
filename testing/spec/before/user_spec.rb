@@ -1,4 +1,6 @@
-require 'spec_helper'
+require 'serverspec'
+
+set :backend, :exec
 
 describe package('httpd'), :if => os[:family] == 'ubuntu' do
   it { should_not be_installed }
