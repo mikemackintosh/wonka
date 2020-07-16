@@ -20,4 +20,4 @@ useradd:
 	$(DOCKER_EXEC) /go/src/$(PKG_PATH)/bin/useradd -l
 
 spec:
-	$(DOCKER_EXEC) sh -c "cd testing && bundle exec rake spec"
+	$(DOCKER_EXEC) sh -c "rake -f testing/Rakefile spec"

@@ -23,7 +23,7 @@ namespace :spec do
   end
 
   # pid = Process.spawn('go', 'run', 'cmd/useradd/useradd.go', :err=>:out)
-  puts %x[go run ../cmd/useradd/useradd.go splug].inspect
+  puts %x[go run cmd/useradd/useradd.go splug].inspect
 
   RSpec::Core::RakeTask.new(:after) do |t|
     t.pattern = "spec/after/*_spec.rb"

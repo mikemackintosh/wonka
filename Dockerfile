@@ -27,9 +27,9 @@ RUN curl -s https://storage.googleapis.com/golang/go1.13.4.linux-amd64.tar.gz | 
 ENV PATH $PATH:/usr/local/go/bin
 ENV GOPATH /Users/splug/go
 
-
 COPY testing/Gemfile Gemfile
 RUN gem install bundler && \
-    bundler install --jobs=3 --path=/vendor
+    bundler install --jobs=3 --path=/vendor && \
+    cp -R .bundle /
 
 CMD ["echo", "Please choose a command to run"]
